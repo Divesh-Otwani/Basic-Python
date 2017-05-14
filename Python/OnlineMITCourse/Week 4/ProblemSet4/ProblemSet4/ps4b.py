@@ -58,12 +58,16 @@ def compPlayHand(hand, wordList, n):
     
     
     
-    
+
+
+
     
 #
 # Problem #8: Playing a game
 #
 #
+
+
 
 def playHand(hand, wordList, n):
     """
@@ -127,6 +131,8 @@ def playHand(hand, wordList, n):
         print("Run out of letters. Total score: "+  str(total_score) + "points.")
 
 
+
+
 #
 # Problem #5: Playing a game
 # 
@@ -160,7 +166,9 @@ def playGame(wordList, hand = {}):
     else:
         playHand(hand, wordList, HAND_SIZE)
     return playGame(wordList, hand)
-        
+
+
+
             
 #
 # Build data structures used for entire session and play game

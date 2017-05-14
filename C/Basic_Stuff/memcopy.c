@@ -4,8 +4,11 @@
 void *memcpy1(void *dest, const void *src, size_t n){
 	char *target = (char *) dest;
 	char *source = (char *) src;
-	for(n; n > 0; --n)
-		*(target++) = *(source++);
+	for(n; n > 0; --n){
+		*(target) = *(source);
+                target++;
+                source++;
+        }
 	return dest;
 }
 

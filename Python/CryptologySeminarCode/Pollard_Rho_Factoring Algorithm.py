@@ -45,7 +45,7 @@ def pr(n):
     terms = {k:x_k}
     while (d==1):
         print "k: ",k," x_k: ", x_k, "\n", "j: ", j , "j_k: ", terms[j],"\n", "d: ", d, "\n-------------"
-        k +=1
+        k += 1
         x_k = g(x_k,n)
         terms[k] = x_k
         j = 2**(math.floor(math.log(k,2)))-1

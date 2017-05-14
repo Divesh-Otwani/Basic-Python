@@ -2,11 +2,12 @@
  * In this folder, I implement a generic BST with
  * unique keys.
  * Visually:
- * 				     {x}
+ * 		      {x}
  *                 /      \
  *             {y < x}    {x < z}
  * 			
- * 	for each node {x} and arbitrary y, z in the left, right
+ * 	for each node {x} and arbitrary y, 
+ * 	z in the left, right
  *	subtrees.
  *
  * You create a BST with an order function
@@ -15,15 +16,24 @@
  * 		1 iff *a < *b
  *
  * 	The other operations are just
- * 		1) int BSTinsert(BST *, void *key, void *val );
- * 			returns 1 on success and 0 on failure.
+ * 		1) int BSTinsert(BST *
+ * 		                , void *key 
+ * 		                , void *val );
+ *
+ * 			returns 1 on success and 
+ * 			0 on failure.
+ *
  * 			You can't insert duplicate keys.
  * 		2) void *BSTsearch(BST *, void *key);
- * 			this is NULL if no such entree found
+ * 			this is NULL if no such entree 
+ * 			found
  * 		3) int BSTset(BST *, void *key, void *val);
- * 			this resets a value of an existing entree,
- * 			returns 1=success, 0= no such entree.
- * 			The user is responsible for freeing memory
+ * 			this resets a value of an existing
+ * 			entree,
+ * 			returns 1=success, 0= no such 
+ * 			entree.
+ * 			The user is responsible for 
+ * 			freeing memory
  * 			of stored values.
  * 		5) int BSTpopulation(BST *);
  */

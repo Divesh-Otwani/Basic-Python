@@ -6,7 +6,7 @@ object main extends App{
 
 abstract class Nat
 
-case class Zero() extends Nat
+case object Zero extends Nat
 
 case class Succ(x:Nat) extends Nat
 
