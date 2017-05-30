@@ -5,18 +5,18 @@ import Network.CGI.Protocol
 import System.IO
 
 greeting :: String
-greeting = "Welcome to Divesh's Untyped Lambda Calculus."
-
+greeting = "Welcome to Divesh's Untyped Lambda Calculus." ++
+  "\nHere is the interface:\n\n" ++ interface
 interface :: String
 interface =
   unlines
-    [ "data Term where"
-    , "  Iden :: Var -> Term"
-    , "  Lambda :: Var -> Term -> Term"
-    , "  App :: Term -> Term -> Term"
-    , "  Def :: String -> Term -- user made bindings"
-    , "data Var = Var String"
-    , "data Bind = String := Term"
+    [ "A Term is one of"
+    , "  Iden String"
+    , "  String :>> Term -- lambda"
+    , "  Term :@ Term -- application"
+    , "  Def String -- user made bindings"
+    , "String := Term -- is how you bind"
+    , "-- Note, you need all the parenthesis :("
     ]
 
 main :: IO ()
@@ -49,18 +49,24 @@ loop xs = do
       hFlush stdout
       loop xs
 
+type IdSet = String
 
 data Term where
-  Iden :: Var -> Term
-  Lambda :: Var -> Term -> Term
-  App :: Term -> Term -> Term
+  Iden :: IdSet -> Term
+  (:>>) :: IdSet -> Term -> Term -- Lambda
+  (:@) :: Term -> Term -> Term
   Def :: String -> Term -- user made bindings
   deriving (Show, Eq, Read)
 
 
-data Var where
-  Var :: String -> Var
-  deriving (Show, Eq, Read)
+infixr 6 :>>
+infixl 6 :@
+
+-- note that
+lambda :: IdSet -> Term -> Term
+lambda = (:>>)
+app :: Term -> Term -> Term
+app = (:@)
 
 type Bindings = [(String, Term)]
 
@@ -72,28 +78,33 @@ type Bindings = [(String, Term)]
 -- does one step if possible
 oneStepEval :: Bindings -> Term -> Maybe Term
 oneStepEval xs (Def s) = lookup s xs
-oneStepEval xs (App (Lambda v t) b) = Just $ bindVar xs (v,b) t
-oneStepEval xs (Lambda v t) = do
+oneStepEval xs ((v :>> t) :@ b) = Just $ bindVar xs (v,b) t
+oneStepEval xs (Def s :@ t) = do
+  lam <- lookup s xs
+  return $ lam :@ t
+oneStepEval xs (a :@ t) = do
+  next <- oneStepEval xs a
+  return $ next :@ t
+oneStepEval xs (v :>> t) = do
   next <- oneStepEval xs t
-  return $ Lambda v next
+  return $ v :>> next
 oneStepEval _ _ = Nothing
 
--- helper
-fromMaybe :: a -> Maybe a -> a
-fromMaybe a Nothing = a
-fromMaybe _ (Just a) = a
 
 -- binds var in second term if it applies.
-bindVar :: Bindings -> (Var, Term) -> Term -> Term
-bindVar xs _ a@(Def s) = fromMaybe a (lookup s xs)
-bindVar _ (Var s, b) r@(Iden (Var s'))
+bindVar :: Bindings -> (IdSet, Term) -> Term -> Term
+bindVar xs b a@(Def s) =
+  case lookup s xs of
+    Just t -> bindVar xs b t
+    Nothing -> a
+bindVar _ (s, b) r@(Iden s')
   | s == s' = b
   | otherwise = r
-bindVar xs context (App t1 t2) =
-  App (bindVar xs context t1) (bindVar xs context t2)
-bindVar xs cont@(Var s, _) lam@(Lambda (Var s') t)
+bindVar xs context (t1 :@ t2) =
+  bindVar xs context t1 :@ bindVar xs context t2
+bindVar xs cont@(s, _) lam@(s' :>> t)
   | s == s' = lam
-  | otherwise = Lambda (Var s') (bindVar xs cont t)
+  | otherwise = s' :>> bindVar xs cont t
 
 
 
@@ -103,15 +114,25 @@ evaluate xs t = case oneStepEval xs t of
   Just t' -> evaluate xs t'
   Nothing -> t
 
+
+
 -- for testing
 true :: Term
-true = Lambda (Var "x") (Lambda (Var "y") (Iden (Var "x")))
+true = "x" :>> "y" :>> Iden "x"
 false :: Term
-false = Lambda (Var "x") (Lambda (Var "y") (Iden (Var "y")))
+false = "x" :>> "y" :>> Iden "y"
+istrue = true :@ true :@ false
 
 
+alwaysFalse = "x" :>> false
+pair = "f" :>> "s" :>> "b" :>> (Iden "b" :@ Iden "f" :@ Iden "s")
+fst = "p" :>> (Iden "p" :@ true)
+snd = "p" :>> (Iden "p" :@ false)
 
-
-
+iszero = "m" :>> (Iden "m" :@ alwaysFalse :@ true)
+zero = false
+scc =
+  "n" :>> "s" :>> "z" :>>
+    (Iden "s" :@ (Iden "n" :@ Iden "s" :@ Iden "z"))
 
 
