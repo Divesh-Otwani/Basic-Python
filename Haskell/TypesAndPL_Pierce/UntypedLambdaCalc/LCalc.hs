@@ -1,6 +1,7 @@
 {-# LANGUAGE GADTs, ScopedTypeVariables #-}
 module LCalc where
 
+import Prelude hiding ( fst, snd, pred )
 import Network.CGI.Protocol
 import System.IO
 
@@ -22,7 +23,7 @@ interface =
 main :: IO ()
 main = do
   putStrLn greeting
-  loop []
+  loop givenDefinitions -- see bottom
 
 data Bind where
   (:=) :: String -> Term -> Bind
@@ -134,5 +135,22 @@ zero = false
 scc =
   "n" :>> "s" :>> "z" :>>
     (Iden "s" :@ (Iden "n" :@ Iden "s" :@ Iden "z"))
+one = scc :@ zero
+plus =
+  "m" :>> "n" :>> "s" :>> "z" :>>
+    (Iden "m" :@ Iden "s" :@ (Iden "n" :@ Iden "s"  :@ Iden "z"))
+zz = pair :@ zero :@ zero
+ss = "p" :>> (pair :@ (snd :@ Iden "p") :@ (plus :@ one :@ (snd :@ Iden "p")))
+pred = "m" :>> (fst :@ (Iden "m" :@ ss :@ zz))
+ite = "if" :>> "then" :>> "else" :>> (Iden "if" :@ Iden "then" :@ Iden "else")
+
+
+givenDefinitions = [ ("zero", zero)
+                   , ("scc", scc)
+                   , ("pred", pred)
+                   , ("ite", ite)
+                   , ("isZ", iszero)
+                   ]
+
 
 
