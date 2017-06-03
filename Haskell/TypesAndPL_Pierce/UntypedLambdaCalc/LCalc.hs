@@ -46,11 +46,22 @@ loop xs = do
           putStrLn interface
           loop xs
     Just t -> do
-      print $ evaluate xs t
-      hFlush stdout
-      loop xs
+      case evalBindings xs t of
+        Nothing ->
+          putStrLn "Used undefined bindings." >>
+          loop xs
+        Just tt ->
+          print (evaluate tt) >>
+          hFlush stdout >>
+          loop xs
 
 type IdSet = String
+
+data TTerm where
+  TIden :: IdSet -> TTerm
+  (::>>) :: IdSet -> TTerm -> TTerm
+  (::@) :: TTerm -> TTerm -> TTerm
+  deriving (Show, Eq, Read)
 
 data Term where
   Iden :: IdSet -> Term
@@ -61,7 +72,9 @@ data Term where
 
 
 infixr 6 :>>
+infixr 6 ::>>
 infixl 6 :@
+infixl 6 ::@
 
 -- note that
 lambda :: IdSet -> Term -> Term
@@ -69,7 +82,22 @@ lambda = (:>>)
 app :: Term -> Term -> Term
 app = (:@)
 
+
 type Bindings = [(String, Term)]
+
+-- first, unlimited depth
+evalBindings :: Bindings -> Term -> Maybe TTerm
+evalBindings xs (Def s) = do
+  t <- lookup s xs
+  evalBindings xs t
+evalBindings _  (Iden s) = Just $ TIden s
+evalBindings xs (t1 :@ t2) = do
+  tt1 <- evalBindings xs t1
+  tt2 <- evalBindings xs t2
+  return $ tt1 ::@ tt2
+evalBindings xs (s :>> t) = do
+  tt <- evalBindings xs t
+  return $ s ::>> tt
 
 -- We use normal evaluation.
 -- That is, left to right.
@@ -77,42 +105,34 @@ type Bindings = [(String, Term)]
 -- check it works out.. with this binding alg.
 
 -- does one step if possible
-oneStepEval :: Bindings -> Term -> Maybe Term
-oneStepEval xs (Def s) = lookup s xs
-oneStepEval xs ((v :>> t) :@ b) = Just $ bindVar xs (v,b) t
-oneStepEval xs (Def s :@ t) = do
-  lam <- lookup s xs
-  return $ lam :@ t
-oneStepEval xs (a :@ t) = do
-  next <- oneStepEval xs a
-  return $ next :@ t
-oneStepEval xs (v :>> t) = do
-  next <- oneStepEval xs t
-  return $ v :>> next
-oneStepEval _ _ = Nothing
+oneStepEval :: TTerm -> Maybe TTerm
+oneStepEval ((v ::>> t) ::@ b) = Just $ bindVar (v,b) t
+oneStepEval (a ::@ t) = do
+  next <- oneStepEval a
+  return $ next ::@ t
+oneStepEval (v ::>> t) = do
+  next <- oneStepEval t
+  return $ v ::>> next
+oneStepEval _ = Nothing
 
 
 -- binds var in second term if it applies.
-bindVar :: Bindings -> (IdSet, Term) -> Term -> Term
-bindVar xs b a@(Def s) =
-  case lookup s xs of
-    Just t -> bindVar xs b t
-    Nothing -> a
-bindVar _ (s, b) r@(Iden s')
+bindVar :: (IdSet, TTerm) -> TTerm -> TTerm
+bindVar (s, b) r@(TIden s')
   | s == s' = b
   | otherwise = r
-bindVar xs context (t1 :@ t2) =
-  bindVar xs context t1 :@ bindVar xs context t2
-bindVar xs cont@(s, _) lam@(s' :>> t)
-  | s == s' = lam
-  | otherwise = s' :>> bindVar xs cont t
+bindVar context (t1 ::@ t2) =
+  bindVar context t1 ::@ bindVar context t2
+bindVar cont@(s, _) lam@(s' ::>> t)
+  | s == s' = lam -- lexical scoping
+  | otherwise = s' ::>> bindVar cont t
 
 
 
 
-evaluate :: Bindings -> Term -> Term
-evaluate xs t = case oneStepEval xs t of
-  Just t' -> evaluate xs t'
+evaluate :: TTerm -> TTerm
+evaluate t = case oneStepEval t of
+  Just t' -> evaluate t'
   Nothing -> t
 
 
@@ -143,6 +163,8 @@ zz = pair :@ zero :@ zero
 ss = "p" :>> (pair :@ (snd :@ Iden "p") :@ (plus :@ one :@ (snd :@ Iden "p")))
 pred = "m" :>> (fst :@ (Iden "m" :@ ss :@ zz))
 ite = "if" :>> "then" :>> "else" :>> (Iden "if" :@ Iden "then" :@ Iden "else")
+
+--recursion1 = "x" :>> (ite :@ (iszero :@ Iden "x") :@ Iden "x" :@ ((Def "recursion1") :@ (pred :@ Iden "x")))
 
 
 givenDefinitions = [ ("zero", zero)
