@@ -34,6 +34,43 @@ public class MakeConfigFiles {
 			"org.springframework.transaction.PlatformTransactionManager"
 	};
 	
+	// MUST format strings before writing...
+	private static String[] methodOne = { 
+		  "LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean()",
+	      "em.setDataSource(%s)",
+	      "em.setPackagesToScan(new String[] { \"%s\", \"%s\" })",
+	      "JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter()",
+	      "em.setJpaVendorAdapter(vendorAdapter)",
+	      "em.setJpaProperties(additionalProperties())",
+	      "return em"
+		};
+
+	private static String[] methodTwo = {
+		  "DriverManagerDataSource dataSource = new DriverManagerDataSource()",
+	      "dataSource.setDriverClassName(\"%s\")",
+	      "dataSource.setUrl(\"%s\")",
+	      "dataSource.setUsername(\"%s\")",
+	      "dataSource.setPassword(\"%s\")",
+	      "return dataSource"
+	};
+	
+	private static String[] methodThree = {
+		  "JpaTransactionManager transactionManager = new JpaTransactionManager()",
+	      "transactionManager.setEntityManagerFactory(emf)",
+	      "return transactionManager"
+	};
+	
+	private static String[] methodFour = {
+	      "return new PersistenceExceptionTranslationPostProcessor()"
+	};
+
+	private static String[] methodFive = {
+		   "Properties properties = new Properties()",
+		   "properties.setProperty(\"hibernate.dialect\", \"org.hibernate.dialect.PostgreSQLDialect\")",
+		   "return properties"
+	};
+	 
+
 	public 
 	static HashMap<String, DataBaseConn> createConfigFiles(
 			DataAccessConfig cf, 
@@ -65,7 +102,7 @@ public class MakeConfigFiles {
 			String uid = db.uniqueId();
 			uidMap.put(uid, db);
 			String srcFileNm = 
-					pkgNm +
+					pkgNm + "." +
 					clsNmPrefix +
 					uid +
 					"Config";
@@ -101,65 +138,176 @@ public class MakeConfigFiles {
 		Writer w = file.openWriter();
 		JavaWriter jw = new JavaWriter(w);
 		jw.emitPackage(pkgNm);
-		Set<Modifier> mods = new HashSet<Modifier>();
-		mods.add(Modifier.PUBLIC);
 		jw.emitImports(imports);
 		jw.emitAnnotation("Configuration");
 		HashMap<String, String> jpaArgs =
 				new HashMap<String, String>();
-		jpaArgs.put("basePackages", emfNm);
-		jpaArgs.put("entityManagerFactoryRef", tmrNm);
+		jpaArgs.put("basePackages", quote(dcon.repoPkgNm()));
+		jpaArgs.put("entityManagerFactoryRef", quote(emfNm));
+		jpaArgs.put("transactionManagerRef", quote(tmrNm));
 		jw.emitAnnotation("EnableJpaRepositories", jpaArgs);
-		jw.beginType(clNm, "class", mods);
+		jw.beginType(clNm, "class", getMods());
 		
 		String[] methAns = 
 				(isPrimary) ? 
 						new String[] {"Bean", "Primary"} : 
 						new String[] {"Bean"};
 		
-		createFn1(jw, dcon, methAns, emfNm);
+		jw.emitEmptyLine();
+		createFn1(jw, dcon, methAns, emfNm, dtaNm);
+		jw.emitEmptyLine();
 		createFn2(jw, dcon, methAns, dtaNm);
+		jw.emitEmptyLine();
 		createFn3(jw, dcon, methAns, tmrNm);
+		jw.emitEmptyLine();
 		createFn4(jw, dcon, methAns, extNm);
+		jw.emitEmptyLine();
+		createFn5(jw, dcon);
 		
 		jw.endType();
 		jw.close();
 	
 	}
-
-	private static void createFn4(
+	private static void makeAnns(
 			JavaWriter jw, 
-			DataBaseConn dcon, 
-			String[] methAns, 
-			String methodNm) {
-		
+			String[] ans) throws Exception {
+		for (String an : ans){
+			jw.emitAnnotation(an);
+		}
 	}
 
-	private static void createFn3(
+	private static void createFn1(
 			JavaWriter jw, 
 			DataBaseConn dcon, 
 			String[] methAns, 
-			String methodNm) {
-		// TODO Auto-generated method stub
+			String methodNm,
+			String dSrcMethNm) throws Exception{
 		
+		makeAnns(jw, methAns);
+		
+		String retTp = "LocalContainerEntityManagerFactoryBean";
+		jw.beginMethod(retTp, methodNm, getMods());
+		
+		int len = methodOne.length;
+		for(int i = 0; i < len; ++i){
+			if (i == 1){
+				String stm = String.format(
+						methodOne[i], 
+						dSrcMethNm + "()");
+				jw.emitStatement(stm);
+			}else if(i == 2){
+				String stm = String.format(
+						methodOne[i],
+						dcon.repoPkgNm(),
+						dcon.domainPkgNm());
+				jw.emitStatement(stm);
+			}else{
+				jw.emitStatement(methodOne[i]);
+			}
+		}
+		
+		jw.endMethod();
 	}
 
 	private static void createFn2(
 			JavaWriter jw, 
 			DataBaseConn dcon, 
 			String[] methAns, 
-			String methodNm) {
-		// TODO Auto-generated method stub
+			String methodNm) throws Exception {
 		
+		makeAnns(jw, methAns);
+		String retTp = "DataSource";
+		jw.beginMethod(retTp, methodNm, getMods());
+		int len = methodTwo.length;
+		for(int i = 0; i < len; ++i){
+			if (i == 1){
+				String stm = String.format(
+						methodTwo[i],
+						dcon.dbDriverNm());
+				jw.emitStatement(stm);
+			}else if (i == 2){
+				String stm = String.format(
+						methodTwo[i],
+						dcon.url());
+				jw.emitStatement(stm);
+			}else if (i == 3){
+				String stm = String.format(
+						methodTwo[i],
+						dcon.username());
+				jw.emitStatement(stm);
+			}else if (i == 4){
+				String stm = String.format(
+						methodTwo[i],
+						dcon.password());
+				jw.emitStatement(stm);
+			}else{
+				jw.emitStatement(methodTwo[i]);
+			}
+		}
+		jw.endMethod();
 	}
 
-	private static void createFn1(
+	private static void createFn3(
 			JavaWriter jw, 
 			DataBaseConn dcon, 
-			String[] methAnsn, 
-			String methodNm) {
-		// TODO Auto-generated method stub
+			String[] methAns, 
+			String methodNm) throws Exception{
+		makeAnns(jw, methAns);
+		String retTp = "PlatformTransactionManager";
+		String args[] = {"EntityManagerFactory", "emf"};
+		jw.beginMethod(retTp, methodNm, getMods(), args);
+		for (String stm : methodThree){
+			jw.emitStatement(stm);
+		}
+		jw.endMethod();
+	}
+
+	private static void createFn4(
+			JavaWriter jw, 
+			DataBaseConn dcon, 
+			String[] methAns, 
+			String methodNm) throws Exception {
+		makeAnns(jw, methAns);
+		String retTp = "PersistenceExceptionTranslationPostProcessor";
+		jw.beginMethod(retTp, methodNm, getMods());
+		for (String stm: methodFour){
+			jw.emitStatement(stm);
+		}
+		jw.endMethod();
+	}
 		
+	private static void createFn5(
+			JavaWriter jw, 
+			DataBaseConn dcon) throws Exception {
+		String methNm = "additionalProperties";
+		String retTp = "Properties";
+		Set<Modifier> mods = new HashSet<Modifier>();
+		mods.add(Modifier.PRIVATE);
+		// modifiers CAN'T be empty
+		
+		jw.beginMethod(
+				retTp, 
+				methNm, 
+				mods);
+		for (String stm : methodFive){
+			try{
+				jw.emitStatement(stm);
+			}catch (Throwable e){
+				jw.emitStatement("Messy String");
+			}
+		}
+		jw.endMethod();
+	}
+
+
+	private static String quote(String s){
+		return "\"" + s + "\"";
+	}
+	
+	private static Set<Modifier> getMods(){
+		Set<Modifier> mods = new HashSet<Modifier>();
+		mods.add(Modifier.PUBLIC);
+		return mods;
 	}
 	
 	

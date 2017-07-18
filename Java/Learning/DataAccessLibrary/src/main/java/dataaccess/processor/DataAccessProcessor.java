@@ -66,8 +66,13 @@ public class DataAccessProcessor extends AbstractProcessor {
 			RoundEnvironment roundEnv) {
 		try{
 			return realProcess(annotations, roundEnv);
-		}catch (Exception e){
-			error(e.getMessage());
+		}catch (Throwable e){
+			String err = 
+					"Msg: " + 
+					e.getMessage() + 
+					", toStr: " + 
+					e.toString();
+			error(err);
 			return false;
 		}
 	}
@@ -75,33 +80,35 @@ public class DataAccessProcessor extends AbstractProcessor {
 	private boolean realProcess(
 			Set<? extends TypeElement> annotations, 
 			RoundEnvironment roundEnv) throws Exception {
-		/*
+		
 		// 1. check @dbcons is nested
 		boolean noDbConns = 
 				roundEnv
 				.getElementsAnnotatedWith(DataBaseConn.class)
 				.isEmpty();
-		if (noDbConns){
-			String e = "Can't annotate objects with DataBaseConn";
-			throw new Exception(e);
-		}
-		*/
+		String dbconsEr = "Can't annotate objects with DataBaseConn";
+		myAssert(noDbConns, dbconsEr);
+		
 		
 		// 2. check and generate config files 
 		// w/ DataAccessConfig annotation
 		Element dbConf = 
-				roundEnv.getElementsAnnotatedWith(DataAccessConfig.class).iterator().next();
+				roundEnv
+				.getElementsAnnotatedWith(DataAccessConfig.class)
+				.iterator()
+				.next();
 		
-		/*
-		if (dbsConfig.length != 1) {
-			String e = "Must have exaclty one @DataAccessConfig";
-			throw new Exception(e);
-		}
-		*/
+		boolean oneConfig = roundEnv
+				.getElementsAnnotatedWith(DataAccessConfig.class)
+				.size() == 1;
+		String noOneConf = "Need exactly one DataAccessConfig annotation";
+		myAssert(oneConfig, noOneConf);
+		
 		DataAccessConfig dataAccessConfig = dbConf.getAnnotation(DataAccessConfig.class);
-		//checkDataAccessRules(dbsConfig[0]);
+		checkDataAccessRules(dbConf);
 		
-		if (dbConf.getKind() != ElementKind.CLASS){ // error too
+		if (dbConf.getKind() != ElementKind.CLASS){ 
+			error(" dataAccessConf annotation should be on a class.");
 			return false;
 		}
 		
@@ -128,19 +135,24 @@ public class DataAccessProcessor extends AbstractProcessor {
 	private void error(String msg) {
 		messager.printMessage(Kind.ERROR, msg);
 	}
+	
+	private void myAssert(Boolean b, String msg) throws Exception {
+		// want bool to be true.
+		if (!b){
+			error(msg);
+			throw new Exception("assertion failed: " + msg);
+		}
+	}
 
 	private String cleanPkgName(String s) {
 		String[] sp = s.split("\\s+");
 		return sp[1];
 	}
 	
-	/*
 	private void checkDataAccessRules(Element annotatedCls)
 	throws Exception {
 		
 	}
-	*/
-	
 	
 	private void setUpFailovers(
 			RoundEnvironment roundEnv,
