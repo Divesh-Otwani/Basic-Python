@@ -45,7 +45,7 @@ loop xs = do
           putStrLn "Either provide a Bind or a Term\n"
           putStrLn interface
           loop xs
-    Just t -> do
+    Just t ->
       case evalBindings xs t of
         Nothing ->
           putStrLn "Used undefined bindings." >>
