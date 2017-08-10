@@ -9,9 +9,8 @@ insert = undefined
 toList :: BST a -> [a]
 toList = undefined
 
---treeSort :: Ord a => [a] -> [a]
+treeSort :: Ord a => [a] -> [a]
 treeSort = toList . insert
-
 
 
 
