@@ -9,33 +9,41 @@ the board and the game in general. Then we ultimately
 implement a method to perform one move.
 
 The GUI implementation simply wraps around this engine
-and converts that input into moves here.
+and converts input into moves here.
 
 Note: I make extensive use of types to avoid
 commenting. Observe the names carefully.
+
+Idea:
+For voiding pieces,
+walk along the empty slots
+like the mouse holding their hand
+on the cheese
+
 
 -}
 
 import MyMatrix ( Matrix, maybeIndexM, maybeSetM
                 , queryDims, prettyPrint)
-import Control.Monad ( guard )
-import Control.Applicative (Alternative, liftA2)
 
 
 data GameState where
   GameState ::
-    { redPlData :: PlayerData
-    , blackPlData :: PlayerData
+    { players :: SixPlayers
     , phase :: GamePhase
     , board :: SixBoard
     , status :: GameStatus
     } -> GameState
 
+data SixPlayers where
+  SixPlayers :: { getRedPl :: PlayerData
+                , getBlackPl :: PlayerData
+                } -> SixPlayers
+
 -- Ct ~ count
 data PlayerData where
   PlayerData ::
-    { color :: Piece
-    , toPlayCt :: Int
+    { toPlayCt :: Int
     , playedCt :: Int
     , voidCt :: Int
     } -> PlayerData
@@ -56,7 +64,8 @@ data Piece where
   BlackPiece :: Piece
   deriving (Show, Eq)
 
-type SixBoard = Matrix (Maybe Piece)
+type Cell = Maybe Piece
+type SixBoard = Matrix Cell
 type PieceIndex = (Int, Int)
 
 -- ix ~ index; L ~ left; R ~ right
@@ -190,13 +199,14 @@ crown = [ TopL
         , TopL <.> TopR
         , TopR <.> TopR
         ]
+
 rotatePaths :: [AbstractPiecePath] -> [AbstractPiecePath]
 rotatePaths = map rotatePath
 
 waterfall :: (a -> a) -> [a] -> [a]
 waterfall _ [] = []
 waterfall fn (x:xs) =
-  fn x : waterfall (fn . fn) xs
+  fn x : map fn (waterfall fn xs)
 
 rotationsOf :: [AbstractPiecePath] -> [[AbstractPiecePath]]
 rotationsOf = waterfall rotatePaths . replicate 6
@@ -285,23 +295,11 @@ checkWinAt cell brd =
 --------------------------------------------------------------------
 --------------------------------------------------------------------
 
-data Error a where
-  Error :: a -> Error a
+data MyError a where
+  MyError :: a -> MyError a
 
-type SimpleError = Error String
+type SimpleError = MyError String
 type MaybeError = Either SimpleError
-
-instance Applicative MaybeError where
-  pure = Right
-
-  liftA2 fn (Right a) (Right b) = pure $ fn a b
-  liftA2 _  (Left e)  (Right _) = Left e
-  liftA2 _   _        someError = someError
-
-
-
-instance Alternative (Either SimpleError) where
-
 
 data GameMove where
   -- In phase one, you just place
@@ -313,10 +311,14 @@ data GameMove where
 
 type Hopefully a = Either SimpleError a
 
--- Convention: (red, black)
-type SixPlayers = (PlayerData, PlayerData)
-type PrevPlayerData = SixPlayers
-type NextPlayerData = SixPlayers
+mkErr :: String -> Hopefully a
+mkErr s = Left $ MyError s
+
+type PrevPlayers = SixPlayers
+type NextPlayers = SixPlayers
+
+type PrevPlayerData = PlayerData
+type NextPlayerData = PlayerData
 
 type PrevBoard = SixBoard
 type NextBoard = SixBoard
@@ -331,59 +333,232 @@ type PrevGameState = GameState
 type NextGameState = GameState
 
 type ColorToPlay = Piece
+type Player = Piece
+type PlayerMakingMove = Piece
+
+type PiecesInPlayCount = Int
+
 
 makeMove :: GameMove -> PrevGameState -> Hopefully NextGameState
 makeMove
   move
-  GameState { status = s@(OnGoing xToMove)
-             , phase = thePhase
-             , board = brd
-             , redPlData = redData
-             , blackPlData = blackData
-             } =
-  if not phaseMatchesMove move thePhase
-  then Left $ Error "Phase != Move Phase"
+  GameState { status = stat@(OnGoing xToMove)
+            , phase = thePhase
+            , board = brd
+            , players =  plrs@(SixPlayers
+                               { getRedPl = redData
+                               , getBlackPl = blackData
+                               }
+                              )
+            } =
+  if not $ phaseMatchesMove move thePhase
+  then mkErr "Phase != Move Phase"
+  else if not $ dataMatchesPhase plrs thePhase
+  then mkErr "Data inconsistent with phase."
   else do
     nextBrd <- boardStep xToMove move brd
-    let nextPlData = plDataStep (nextBrd, (redData, blackData))
+    let nextPlData = plDataStep xToMove thePhase nextBrd plrs
     let nextPhase = phaseStep PhaseOne nextPlData
-    let nextStatus = statusStep s move nextBrd
-    return GameState { redPlData = fst nextPlData
-                    , blackPlData = snd nextPlData
-                    , phase = nextPhase
-                    , board = nextBrd
-                    , status = nextStatus
-                    }
-makeMove _ _ = Left $ Error "Can't move in an end state"
+    nextStatus <- statusStep stat move nextBrd nextPlData
+    return GameState { players = nextPlData
+                     , phase = nextPhase
+                     , board = nextBrd
+                     , status = nextStatus
+                     }
+
+makeMove _ _ = mkErr "Can't move in an end state"
 
 phaseMatchesMove :: GameMove -> GamePhase -> Bool
 phaseMatchesMove (PhaseOneMove _)   PhaseOne = True
 phaseMatchesMove (PhaseTwoMove _ _) PhaseTwo = True
 phaseMatchesMove _                  _        = False
 
+dataMatchesPhase :: SixPlayers -> GamePhase -> Bool
+dataMatchesPhase plrs phase' = case phase' of
+  PhaseOne ->
+    all ((/= 0) . toPlayCt) plrsList &&
+    all ((== 0) . voidCt) plrsList
+  PhaseTwo ->
+    all ((== 0) . toPlayCt) plrsList
+  where
+    plrsList = [getRedPl plrs, getBlackPl plrs]
 
 
+
+--   Need to figure out a nice way to resize the board,
+-- and deal with the fact that the location of the move changes.
 boardStep ::
   ColorToPlay -> GameMove -> PrevBoard -> Hopefully NextBoard
-boardStep pieceToPlay move brd = undefined
+boardStep pieceToPlay (PhaseOneMove spot) brd =
+  placeOnBoard pieceToPlay spot brd
+boardStep pieceToPlay (PhaseTwoMove fromSpot toSpot) brd =
+  undefined -- THIS IS HARD. Voiding pieces!!!
 
 
-plDataStep :: (NextBoard, PrevPlayerData) -> NextPlayerData
-plDataStep = undefined
+placeOnBoard ::
+  ColorToPlay -> PieceIndex -> SixBoard -> Hopefully SixBoard
+placeOnBoard pieceToPlay spot brd = do
+  currentlyThere <- hfullyIndexBrd spot brd
+  case currentlyThere of
+    Nothing ->
+      hfullySetBrd spot pieceToPlay brd
+    Just _ ->
+      mkErr "Can't place since piece already there."
 
 
-phaseStep :: PrevPhase -> NextPlayerData -> NextPhase
+emsg :: String
+emsg = "That spot does not exist on the board"
+
+hfullyIndexBrd :: PieceIndex -> SixBoard -> Hopefully (Maybe Piece)
+hfullyIndexBrd spot brd = case maybeIndexM spot brd of
+  Nothing -> mkErr emsg
+  Just spot' -> Right spot'
+
+hfullySetBrd :: PieceIndex -> Piece -> SixBoard -> Hopefully SixBoard
+hfullySetBrd spot piece brd =
+  case maybeSetM spot (Just piece) brd of
+    Nothing -> mkErr emsg
+    Just brd' -> Right brd'
+
+data SixBoardCount where
+  SixBoardCount :: { getRedCnt :: Int
+                   , getBlackCnt :: Int
+                   } -> SixBoardCount
+
+countSixBoard :: SixBoard -> SixBoardCount
+countSixBoard brd =
+  let
+    pieces = concatMap getJusts brd
+    redCnt = countList RedPiece pieces
+    blackCnt = countList BlackPiece pieces
+  in
+    SixBoardCount {getRedCnt = redCnt, getBlackCnt = blackCnt}
+
+-- Should update this: -----------
+countList :: Eq a => a -> [a] -> Int
+countList = countListInternal 0
+  where
+    countListInternal :: Eq a => Int -> a -> [a] -> Int
+    countListInternal n _ [] = n
+    countListInternal n a (x:xs) | x == a    =
+                                   countListInternal (n+1) a xs
+                                 | otherwise =
+                                   countListInternal n a xs
+getJusts :: [Maybe a] -> [a]
+getJusts [] = []
+getJusts (x:xs) = case x of
+  Nothing -> getJusts xs
+  Just a -> a : getJusts xs
+---------------------------
+
+plDataStep ::
+  PlayerMakingMove ->
+  PrevPhase ->
+  NextBoard ->
+  PrevPlayers ->
+  NextPlayers
+plDataStep plr PhaseOne _ plrData =
+  updatePlayer plr phaseOneUpdate plrData
+  where
+
+    phaseOneUpdate :: PlayerData -> PlayerData
+    phaseOneUpdate plr' = PlayerData { toPlayCt = toPlayCt plr' - 1
+                                    , playedCt = playedCt plr' + 1
+                                    , voidCt = voidCt plr' }
+    updatePlayer ::
+      Player -> (PlayerData -> PlayerData) -> SixPlayers -> SixPlayers
+    updatePlayer plr' fn SixPlayers
+      { getRedPl = red
+      , getBlackPl = black
+      } =
+        case plr' of
+          RedPiece ->
+            SixPlayers {getRedPl = fn red, getBlackPl = black}
+          BlackPiece ->
+            SixPlayers {getRedPl = red, getBlackPl = fn black}
+
+plDataStep _ PhaseTwo brd plrData =
+  SixPlayers {getRedPl = nextRed, getBlackPl = nextBlack}
+  where
+    brdCount :: SixBoardCount
+    brdCount = countSixBoard brd
+
+    phaseTwoMove :: PrevPlayerData -> PiecesInPlayCount -> NextPlayerData
+    phaseTwoMove plr newInPlay =
+      let
+        newVoid = voidCt plr + (playedCt plr - newInPlay)
+      in PlayerData { toPlayCt = toPlayCt plr -- should be 0
+                    , playedCt = newInPlay
+                    , voidCt = newVoid }
+
+    nextRed = phaseTwoMove (getRedPl plrData) (getRedCnt brdCount)
+    nextBlack = phaseTwoMove (getBlackPl plrData) (getBlackCnt brdCount)
+
+
+
+phaseStep :: PrevPhase -> NextPlayers -> NextPhase
 phaseStep PhaseTwo _ = PhaseTwo
-phaseStep PhaseOne (p1, p2) =
-  if all ((== 0) . toPlayCt) [p1,p2]
+phaseStep PhaseOne SixPlayers {getRedPl = red, getBlackPl = black} =
+  if all ((== 0) . toPlayCt) [red, black]
   then PhaseTwo
   else PhaseOne
 
-statusStep :: PrevStatus -> GameMove -> NextBoard -> NextStatus
-statusStep = undefined
+
+statusStep ::
+  PrevStatus ->
+  GameMove ->
+  NextBoard ->
+  NextPlayers ->
+  Hopefully NextStatus
+statusStep (OnGoing player) move newBrd newPlData
+  | hasWon player (getPlacement move) newBrd newPlData =
+    Right $ Win player
+  | isDraw newPlData =
+    Right Draw
+  | otherwise = Right $ OnGoing $ oppPlayer player
+    where
+      getPlacement :: GameMove -> PieceIndex
+      getPlacement (PhaseOneMove spot)   = spot
+      getPlacement (PhaseTwoMove _ spot) = spot
+
+      hasWon ::
+        PlayerMakingMove ->
+        PieceIndex ->
+        SixBoard ->
+        SixPlayers ->
+        Bool
+      hasWon player' spot brd newPlData' =
+        checkWinAt spot brd || otherPlNoPieces player' newPlData'
+        where
+          otherPlNoPieces :: Player -> SixPlayers -> Bool
+          otherPlNoPieces justplayed SixPlayers
+                                      { getRedPl = red
+                                      , getBlackPl = black
+                                      } =
+            case justplayed of
+              RedPiece -> fstWonByBleeding (red, black)
+              BlackPiece -> fstWonByBleeding (black, red)
+              where
+                fstWonByBleeding (p1,p2) =
+                  playedCt p1 >= 6 && -- not a draw
+                  toPlayCt p2 == 0 &&
+                  playedCt p2 == 0
+
+      isDraw :: SixPlayers -> Bool
+      isDraw SixPlayers { getRedPl = red
+                        , getBlackPl = black
+                        }
+             = all ((== 0) . toPlayCt) [red, black] &&
+               all ((< 6) . playedCt) [red, black]
+
+      oppPlayer = oppPiece
+statusStep _ _ _ _ =
+  mkErr "Game status doesn't progress after win | draw"
 
 
-
+oppPiece :: Piece -> Piece
+oppPiece RedPiece = BlackPiece
+oppPiece BlackPiece = RedPiece
 
 
 
