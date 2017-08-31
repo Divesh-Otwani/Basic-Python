@@ -504,12 +504,8 @@ phaseStep PhaseOne SixPlayers {getRedPl = red, getBlackPl = black} =
   else PhaseOne
 
 
-statusStep ::
-  PrevStatus ->
-  GameMove ->
-  NextBoard ->
-  NextPlayers ->
-  Hopefully NextStatus
+statusStep :: PrevStatus -> GameMove -> 
+              NextBoard -> NextPlayers -> Hopefully NextStatus
 statusStep (OnGoing player) move newBrd newPlData
   | hasWon player (getPlacement move) newBrd newPlData =
     Right $ Win player
