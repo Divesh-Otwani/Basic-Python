@@ -552,12 +552,10 @@ statusStep _ _ _ _ =
   mkErr "Game status doesn't progress after win | draw"
 
 
+
 oppPiece :: Piece -> Piece
 oppPiece RedPiece = BlackPiece
 oppPiece BlackPiece = RedPiece
-
-
-
 
 
 
