@@ -102,7 +102,7 @@ p 78, second line of 6.2
 p 79, exercise 6.2.3
 
     The statement to be shown is not quite true for d < 0.  To be true for
-    n>=0 and any integral d, it should be "Show that, if t is an n-term and,
+    n >=0 and any integral d, it should be "Show that, if t is an n-term and,
     if d < 0, the free variables of t are all at least |d|, then <shift t up
     by d above cutoff c> is a (max(n+d,0))-term."
 

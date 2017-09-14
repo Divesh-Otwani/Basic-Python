@@ -12,9 +12,7 @@ The GUI implementation simply wraps around this engine
 and converts input into moves here.
 
 Note: I make extensive use of types to avoid
-commenting. Observe the names carefully.
-
-Idea:
+commenting. Observe the names carefully.  Idea:
 For voiding pieces,
 walk along the empty slots
 like the mouse holding their hand
@@ -504,7 +502,7 @@ phaseStep PhaseOne SixPlayers {getRedPl = red, getBlackPl = black} =
   else PhaseOne
 
 
-statusStep :: PrevStatus -> GameMove -> 
+statusStep :: PrevStatus -> GameMove ->
               NextBoard -> NextPlayers -> Hopefully NextStatus
 statusStep (OnGoing player) move newBrd newPlData
   | hasWon player (getPlacement move) newBrd newPlData =

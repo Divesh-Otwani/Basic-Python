@@ -5,9 +5,25 @@ import Prelude hiding ( fst, snd, pred )
 import Network.CGI.Protocol
 import System.IO
 
+{-
+ - Things essentially don't work.
+ - So, that's an issue.
+ -
+ - First implement simply untyped lambda calc.
+ -  (worry about [x -> s] (L z. t) where
+ -  x == z or z is a free variable in s)
+ - Then add strict bindings.
+ -
+ - Choose the lazy eval strategy.
+ - Eval the left most term
+ - and eval (Lambda x. t) t'
+ -
+ -}
+
 greeting :: String
 greeting = "Welcome to Divesh's Untyped Lambda Calculus." ++
   "\nHere is the interface:\n\n" ++ interface
+
 interface :: String
 interface =
   unlines
