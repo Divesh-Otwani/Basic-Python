@@ -1,0 +1,207 @@
+\documentclass{article}
+
+%%%
+% Key commands: Spc m b to build
+% Spc m v to view with default editor
+%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here are packages for fonts, symbols, and graphics
+
+\usepackage{lineno}
+
+\usepackage{amsfonts}
+\usepackage[english]{babel}
+\usepackage{amssymb, latexsym, amsthm, amsmath, verbatim}
+\usepackage[
+                        top=0.8in, % applies to every page!
+                        bottom=1in,
+                        left=1.05in,
+                        right=1.10in,
+                        headheight=0in,
+                        headsep=3in]{geometry}
+                    %\addtolength{\textheight}{.2in}
+
+                    
+\usepackage{graphicx}
+\graphicspath{{.}}
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here are useful environments. Use them by typing, e.g.
+%  \begin{thm} Statement of theorem \end{thm}
+% Often followed at some point by \begin{proof} Proof \end{proof}
+
+\theoremstyle{theorem}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{\textbf Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{\textbf Proposition}
+\newtheorem{crit}[thm]{Criterium}
+\newtheorem{alg}[thm]{Algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here is a different environment. Use it the same way and see what it
+%looks like
+
+\theoremstyle{definition}
+
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{exmp}[thm]{\textbf{Examples}}
+\newtheorem{exmps}[thm]{\textbf{Example}}
+\newtheorem{prob}[thm]{Problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To change how your theorems, exercises, etc. are numbered
+
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here is a different environment. Use it the same way and see what it
+%looks like
+\theoremstyle{remark}
+
+\newtheorem{rem}[thm]{\textbf{Remark}}
+\newtheorem{note}[thm]{Note}
+\newtheorem{claim}[thm]{Claim}
+\renewcommand{\theclaim}{}
+\newtheorem{summ}{Summary}
+\renewcommand{\thesumm}{}
+\newtheorem{case}{Case}
+\newtheorem{ack}{ACKNOWLEDGEMENTS}
+\renewcommand{\theack}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some macros for frequently used commands, and several ways to define them
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Ps}{\mathbb{P}}
+\newcommand{\ba}{\backslash}
+\DeclareMathOperator{\rank}{rank}
+
+%This is a multi line comment
+\newcommand{\comt}[1]{}
+\newcommand{\spc}{\vspace{.06in}}
+\newcommand{\f}[1]{$#1$}
+
+
+
+
+
+
+
+
+\title{FIG := \text{FIG is good} \mid \text{FIG is great} \mid \text{FIG is god}
+\\ ~ \\ \texttt{dotwani@haverford.edu | msoulanill@haverford.edu}  }
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-0.5in}
+
+\section{What is FIG?}
+Formally, FIG is a grammar of terms of infinite length defined through infinite
+recursion.
+But ... the club is something different.
+
+\defn{FIG is a club that helps you build apps/programs to
+  \begin{enumerate}
+  \item
+    Get internships
+  \item
+    Help Haverford (mainly the students)
+  \item
+    Realize your theory heavy education in a practical context
+ }
+
+\end{section}
+
+\section{What do you do?}
+\begin{enumerate}
+\item You form a team of at most 3 people and find a project/app. (We can
+  help you find a project if you can't think of a good one.)
+\item
+  Each week you and your teammates make some serious progress
+  on building the app (with the goal of having it be done in 3-4 weeks, or, worst case,
+  at the end of the semester). We'd like to make you put your code in a public
+  repository in a FIG github organization\footnote{Look it up if you are unfamiliar.} so that way
+  everyone's work is in one place (but you could not do that if you really want to).
+\item
+  One member of your team attends at least one of our bi-weekly half-an-hour
+  meetings and takes 5 minutes to 
+  \begin{enumerate}
+  \item report what their team's progress was from last week
+  \item give us a demo of their team's progress
+  \item mention their team's timeline on finishing the app.
+  \end{enumerate}
+
+  After every team-representative finishes presenting, you can get help from us
+  and each other on specific aspects of your project.
+\item When you're done, you feel awesome about your project and what it does $-$ which often
+  makes haverford way better.
+\item
+  You use your project on your resume (and at our recruiting event) to land internships.
+\end{enumerate}
+
+\end{section}
+
+\newpage
+
+\section{What do we do for you?}
+\begin{itemize}
+\item Keep you on track with your projects
+\item Host weekly teaching sessions \textbf{with dinner} on things not covered in the haverford CS
+  education like
+  \begin{itemize}
+  \item how to set up a development environment on your computer
+  \item how to use git or some version control software, especially if you are
+    on a team
+  \item how to work on a project that takes a long time (like 3 months)
+    and work well with your teammates
+  \item how C or the basics of C++ works
+  \item what pure functional languages are and how you can learn one
+  \item how you can get good at learning new CS skills on your own (especially
+    if your professor erroneously assumes you know something you don't) even
+    with shitty documentation and masses of people online uttering pure nonsense
+      
+  \end{itemize}
+\item Give you an awesome website of our projects, a list of our internship
+  contacts, all sorts of internship and CS advice, lots of cool learning
+  resources and no-bullshit discussions of important issues in CS.\footnote{This
+    is coming shortly.}
+\item Create a help email/slack on which you can post CS related questions
+  -specific or broad.
+\item Organize\footnote{Hopefully we can do this. It's not a sure thing yet; we
+    need to talk to HIP and get this by some bureaucracy.} a end-of-semester recruiting event where
+  representatives from companies watch you present your projects and offer you
+  interviews or talk to you if they are interested.
+\item Provide\footnote{Also not a sure thing yet.} a cool room with fast computers already set up for programming,
+  useful books, nice chairs, CS decorations and maybe snacks. Teams can schedule
+  times for this room.
+  
+  
+\end{itemize}
+
+%assets and how we help achieve those goals
+
+\end{section}
+
+\section{What should you do now?}
+% think of project ideas, spread the word of FIG, find a group for some project
+\begin{enumerate}
+\item
+  Spread the word of FIG. Tell your neighbors. Put up the flyers we're giving
+  you.
+\item
+  Think of cool project ideas and if you want to, run them by us
+\item Maybe find a team of at most 3 people interested in the same project as you.
+  
+\end{enumerate}
+
+\end{document}
