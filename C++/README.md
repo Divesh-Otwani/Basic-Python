@@ -5,14 +5,15 @@
 >    — David Gelernter
 
 
-I don't have many C++ projects yet (but will soon).
+I don't have many C++ projects yet. I just played with C++ since it is popular and influential.
 Folders:
 
 * AcceleratedCpp is the solutions to a great C++ textbook by Andrew Koenig and Barbara E Moo. I have notes and some exercises in that directory.
-* [ICPC](https://icpcarchive.ecs.baylor.edu/index.php?option=com_frontpage&Itemid=1) and [UVaOnlineJudge](https://uva.onlinejudge.org/index.php?option=com_frontpage&Itemid=1) are competitive programming practice websites. I have recently taken up competitive programming and made accounts on these sites. I will post problems I solve and submit online in these directories. 
+* [ICPC](https://icpcarchive.ecs.baylor.edu/index.php?option=com_frontpage&Itemid=1) and [UVaOnlineJudge](https://uva.onlinejudge.org/index.php?option=com_frontpage&Itemid=1) are competitive programming practice websites. I did one problem from each just to explore.
 
 
-
+In general, I don't like C++. I think Rust is way better.
+It's just good to have heard of C++ and some of the core ideas in C++.
 
 
 

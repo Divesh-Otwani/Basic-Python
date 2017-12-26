@@ -16,6 +16,10 @@ My C programming is broken up into the following categories.
   * A queue and a stack
 * Foundations_For_Cpp is some exercises from a resource I used to learn C
 * Projects is large apps. My documentation can be found within that directory.
+  * I have some *awesome* projects in there.
+
+
+
 
 
 
