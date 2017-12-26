@@ -66,8 +66,78 @@ void matrix_rotate(int size, int **arr){
     }
 }
 
+int **matrixCopy(int size, int**matrix){
+    int **copy = (int **) malloc(size * sizeof(int *));
+    for(int i = 0; i < size; ++i){
+        copy[i] = (int *) malloc(size * sizeof(int));
+        for(int j = 0; j < size; ++j){
+            copy[i][j] = matrix[i][j];
+        }
+    }
+    return copy;
+}
+
+
+int convertBool(bool b){
+    if (b){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+
+// terrible memory leak
+void printWarshall(int size, int **matrix){
+    int **copy = matrixCopy(size, matrix); 
+    printf("\nWarshall's Alg for k=0:\n");
+    matrix_print(size, matrix);
+    for(int k = 0; k < size; ++k){
+       for(int i = 0; i < size; ++i){
+            for(int j = 0; j < size; ++j){
+                matrix[i][j] = convertBool(copy[i][j] || (copy[i][k] && copy[k][j]));
+                copy = matrixCopy(size, matrix);
+            }
+        }
+       printf("\nWarshall's Alg for k=%d:\n", k+1);
+       matrix_print(size, matrix);
+    }
+}
+
+int mymin(int a, int b){
+    if (a < b){
+        return a;
+    }else{
+        return b;
+    }
+}
+
+
+// terrible memory leak
+void printFloyd(int size, int **matrix){
+    int **copy = matrixCopy(size, matrix); 
+    printf("\nFloyd's Alg for k=0:\n");
+    matrix_print(size, matrix);
+    for(int k = 0; k < size; ++k){
+       for(int i = 0; i < size; ++i){
+            for(int j = 0; j < size; ++j){
+                matrix[i][j] = mymin(copy[i][j], (copy[i][k] + copy[k][j]));
+                copy = matrixCopy(size, matrix);
+            }
+        }
+       printf("\nFloyd's Alg for k=%d:\n", k+1);
+       matrix_print(size, matrix);
+    }
+}
+
+
+
+
+
 int main(){
     int  **matrix;
+    int **copy;
+
     printf("What is the matrix dim?: \n");
     scanf("%d", &Matrix_dimension);
     matrix =  (int **) malloc(Matrix_dimension * sizeof(int *)); 
@@ -78,13 +148,27 @@ int main(){
             scanf("%d", matrix[i]+j);
         }
     }
+    
+    copy = matrixCopy(Matrix_dimension, matrix);
+    //matrix_print(Matrix_dimension, copy);
+    //matrix_print(Matrix_dimension, matrix);
+
+    
+    //printf("\n%d", convertBool(false)); // great
+
+    printWarshall(Matrix_dimension, matrix);
+    printFloyd(Matrix_dimension, copy);
+
+    /*
+
     puts("This is your matrix before the change:");
     matrix_print(Matrix_dimension, matrix);
     matrix_rotate(Matrix_dimension, matrix);
     puts("This is your changed matrix:");
     matrix_print(Matrix_dimension, matrix);
+    */
     // I don't care about freeing the memory since the program ends now.
-	return 0;
+    return 0;
 }
 
 //Testing
