@@ -11,6 +11,8 @@ doing it with yesod and running it online.
 The core engine is almost done.
 
 I haven't started on the GUI.
+I've decided I'm going to push it to the web and implement the gui using yesod.
+
 
 
 
