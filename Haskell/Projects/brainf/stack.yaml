@@ -1,0 +1,6 @@
+flags: {}
+packages:
+- .
+extra-deps:
+- persistent-vector-0.1.1
+resolver: lts-10.4

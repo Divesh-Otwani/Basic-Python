@@ -1,0 +1,22 @@
+Configuring persistent-vector-0.1.1...
+Preprocessing library for persistent-vector-0.1.1..
+Building library for persistent-vector-0.1.1..
+[1 of 3] Compiling Data.Vector.Persistent.Unsafe ( src/Data/Vector/Persistent/Unsafe.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Vector/Persistent/Unsafe.o )
+
+[;1msrc/Data/Vector/Persistent/Unsafe.hs:16:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wdodgy-imports[0m[0m[;1m][0m[0m[;1m
+    Module ‘GHC.ST’ does not export ‘runSTRep’[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m16 |[0m[0m [;1m[35mimport GHC.ST hiding (runST, runSTRep)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[0m[0m[2 of 3] Compiling Data.Vector.Persistent.Array ( src/Data/Vector/Persistent/Array.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Vector/Persistent/Array.o )
+
+[;1msrc/Data/Vector/Persistent/Array.hs:64:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
+    The import of ‘Control.Monad.ST’ is redundant
+      except perhaps to import instances from ‘Control.Monad.ST’
+    To import instances alone, use: import Control.Monad.ST()[0m[0m
+[;1m[34m   |[0m[0m
+[;1m[34m64 |[0m[0m [;1m[35mimport Control.Monad.ST hiding (runST)[0m[0m
+[;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[0m[0m[3 of 3] Compiling Data.Vector.Persistent ( src/Data/Vector/Persistent.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Vector/Persistent.o )
+Installing library in /home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/lib/x86_64-linux-ghc-8.2.2/persistent-vector-0.1.1-51wjcE4vQOBr8fzfleeeN
+Registering library for persistent-vector-0.1.1..

@@ -1,0 +1,373 @@
+
+==================== FINAL INTERFACE ====================
+2018-01-28 19:09:57.855278 UTC
+
+interface main:Main 8022
+  interface hash: cd5ab3df93898e2b5f405403a402f8ed
+  ABI hash: 73e03714f73c297dcc2bf1f31bb73a5b
+  export-list hash: d9afa47c828bc48595c53b62a00c4f88
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 90f245df37e9756cd3b4d9e963b107a5
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Main.brainf
+  Main.convertString
+  Main.evaluate
+  Main.grabAnInt
+  Main.main
+  Main.BFInput{Main.Dec Main.DoNothing Main.Inc Main.Input Main.MoveLeft Main.MoveRight Main.Print Main.Sequence}
+  Main.BfList
+module dependencies:
+package dependencies: array-0.5.2.0 base-4.10.1.0 deepseq-1.4.3.0
+                      ghc-prim-0.5.1.1 integer-gmp-1.0.1.0 persistent-vector-0.1.1
+orphans: base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
+family instance modules: base-4.10.1.0:Control.Applicative
+                         base-4.10.1.0:Data.Complex base-4.10.1.0:Data.Either
+                         base-4.10.1.0:Data.Functor.Compose base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats
+import  -/  base-4.10.1.0:Data.Foldable 9ed87455d68e87ff2b5b8725eae9897e
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.IO.Handle 5f614cc041d5fa954b0de4d7c73104fe
+import  -/  base-4.10.1.0:GHC.IO.Handle.FD e06fbff6d2dafa211cd5a82e8b1f2f2d
+import  -/  base-4.10.1.0:GHC.Num 6e1dc5d36d99a802edb39b92bb1923b8
+import  -/  base-4.10.1.0:GHC.Show 0a8ce2b5e533d1c2cfb7954e6736be45
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  base-4.10.1.0:System.IO 6e5bb580370d8d71dc5888f723cea4b4
+import  -/  base-4.10.1.0:Text.Read 9e862e012b3c71e83cb56fb456188f44
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
+import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
+import  -/  persistent-vector-0.1.1:Data.Vector.Persistent 8f627bf72af3d8e68d858da9c479c9af
+2aacbb1c09ca300dcd6f2ffdf4a5c371
+  $tc'Dec :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5189152325077666221##
+                   6443886648469810784##
+                   Main.$trModule
+                   Main.$tc'Dec2
+                   0#
+                   Main.$tc'Dec1) -}
+5f96e7e9a10741bd6d834271a6935ee4
+  $tc'Dec1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m1, Inline: [~] -}
+90eb141fbce8bc7611cfc1ec55320f2d
+  $tc'Dec2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'Dec3) -}
+31b77bf21690504a4fdd02b6e90c6225
+  $tc'Dec3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Dec"#) -}
+820cec46956c89f4671f344c307a6c21
+  $tc'DoNothing :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3222815395862128973##
+                   15345551118179289365##
+                   Main.$trModule
+                   Main.$tc'DoNothing1
+                   0#
+                   Main.$tc'Dec1) -}
+0571e4b74df7bcb26cf9ca616ddf7fed
+  $tc'DoNothing1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'DoNothing2) -}
+66b923f38b52c7c4aa1b49deedcd3cd8
+  $tc'DoNothing2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'DoNothing"#) -}
+bc53b7c4dcd35e7185794961dcd50a35
+  $tc'Inc :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   11389228445952348726##
+                   2600218087025628751##
+                   Main.$trModule
+                   Main.$tc'Inc1
+                   0#
+                   Main.$tc'Dec1) -}
+eb3b8c84884f8dcb034217a57be98243
+  $tc'Inc1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'Inc2) -}
+58b9582c8bf1bf6a51387b5b411bed3d
+  $tc'Inc2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Inc"#) -}
+4ab7a202f036ba38942699ebfd6207af
+  $tc'Input :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   15780192430371743680##
+                   6868569667479304576##
+                   Main.$trModule
+                   Main.$tc'Input1
+                   0#
+                   Main.$tc'Dec1) -}
+ff41d39d2271eac2b0b5d0b762872a1a
+  $tc'Input1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'Input2) -}
+0fc3b227edda64ff1bf981d2267cc450
+  $tc'Input2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Input"#) -}
+90729c72318a82779fb250b15b003bc4
+  $tc'MoveLeft :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17758796712657178589##
+                   8696480452653767557##
+                   Main.$trModule
+                   Main.$tc'MoveLeft1
+                   0#
+                   Main.$tc'Dec1) -}
+b4be1a35566622e8202810bc4f37c5c2
+  $tc'MoveLeft1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'MoveLeft2) -}
+e24e234b51a00a89bb4cc6f9bb679bd0
+  $tc'MoveLeft2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'MoveLeft"#) -}
+2eca473fc6fcbb3aa3032be62946562c
+  $tc'MoveRight :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   6305304418669795800##
+                   10161910353296410808##
+                   Main.$trModule
+                   Main.$tc'MoveRight1
+                   0#
+                   Main.$tc'Dec1) -}
+64ee5525a2a302105c0c71e83eb19fb3
+  $tc'MoveRight1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'MoveRight2) -}
+ca9775e9d7ac5d7b2e0b7dc9a140ed66
+  $tc'MoveRight2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'MoveRight"#) -}
+e4c6f196305d7741a7b8fe995591e5b0
+  $tc'Print :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7799544010716427590##
+                   1360867493629538161##
+                   Main.$trModule
+                   Main.$tc'Print1
+                   0#
+                   Main.$tc'Dec1) -}
+9a220ef2134a37500b5573f1f37860ed
+  $tc'Print1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'Print2) -}
+bd63f1b6db6b236e9a8d3893026bd93f
+  $tc'Print2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Print"#) -}
+ee6db4ee5cc8074b8981ca9fb09ca328
+  $tc'Sequence :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   2858539630370563465##
+                   9016601349438872697##
+                   Main.$trModule
+                   Main.$tc'Sequence2
+                   0#
+                   Main.$tc'Sequence1) -}
+4fdd716f35e4f7d74b090656d30d9dc4
+  $tc'Sequence1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+e649db2f7ce1656dc825eae51d15ede1
+  $tc'Sequence2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tc'Sequence3) -}
+fe4ee55fb8e65b50dee512ab9aa22923
+  $tc'Sequence3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Sequence"#) -}
+86bb48cc907e9cf48f7287226d3d11f3
+  $tcBFInput :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   12608696338239981341##
+                   14062861550966802086##
+                   Main.$trModule
+                   Main.$tcBFInput1
+                   0#
+                   GHC.Types.krep$*) -}
+b550e5c02ea4bb5938712aee1a0ac21b
+  $tcBFInput1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$tcBFInput2) -}
+00bfc3c6756bf37be46800b8530f4020
+  $tcBFInput2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("BFInput"#) -}
+9d72b2fddb818bcd8919052935e0f1f3
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Main.$trModule3 Main.$trModule1) -}
+3108ceeaf5a318be844de422b45de9d8
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$trModule2) -}
+e5875966b74dad2d29772660b8a75e33
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Main"#) -}
+33bd129667974f0a0ba4a893af79107d
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Main.$trModule4) -}
+d026be77cb9ced20e35a61514e0458aa
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("main"#) -}
+1a735881384516f8b15d1fcc2e59b836
+  $wbrainf ::
+    Data.Vector.Persistent.Vector GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 3, Strictness: <L,U><L,U(U)><S,U>, Inline: [0] -}
+5a6f9107bdc0a1af550cfa3b1f1414f4
+  data BFInput where
+    DoNothing :: BFInput
+    Inc :: BFInput
+    Dec :: BFInput
+    MoveLeft :: BFInput
+    MoveRight :: BFInput
+    Print :: BFInput
+    Input :: BFInput
+    Sequence :: Main.BFInput -> Main.BFInput -> BFInput
+9b5825ba850c366014ecda1f8d80112b
+  type BfList =
+    (Data.Vector.Persistent.Vector GHC.Types.Int, GHC.Types.Int)
+04fcb3874b28fa20de29aa67759b13c9
+  brainf :: Main.BfList -> GHC.Types.IO ()
+  {- Arity: 2, Strictness: <S,1*U(U,U(U))><S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.brainf1
+                  `cast`
+                (<Main.BfList>_R ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
+0f8da4b917d6a97550981913de9d4016
+  brainf1 ::
+    Main.BfList
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 2, Strictness: <S,1*U(U,U(U))><S,U>, Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: Main.BfList) (w1 :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case w of ww { (,) ww1 ww2 -> Main.$wbrainf ww1 ww2 w1 }) -}
+dc4688437d823d2728263f0b7e523cac
+  convertString :: GHC.Base.String -> GHC.Base.Maybe Main.BFInput
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+8b510fa9e7f859881566d6b95c47dc7e
+  evaluate ::
+    Main.BFInput
+    -> Main.BfList -> GHC.Types.IO (GHC.Base.Maybe Main.BfList)
+  {- Arity: 3, Strictness: <S,1*U><L,U(U,U(U))><S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.evaluate1
+                  `cast`
+                (<Main.BFInput>_R
+                 ->_R <Main.BfList>_R
+                 ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.Maybe Main.BfList>_R)) -}
+46c1e00e708032a04e7165f4db8c4fda
+  evaluate1 ::
+    Main.BFInput
+    -> Main.BfList
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld,
+          GHC.Base.Maybe Main.BfList #)
+  {- Arity: 3, Strictness: <S,1*U><L,U(U,U(U))><S,U> -}
+1c0c91e59d021b00c84fddad8cc5114c
+  grabAnInt :: GHC.Types.IO GHC.Types.Int
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.grabAnInt1
+                  `cast`
+                (Sym (GHC.Types.N:IO[0] <GHC.Types.Int>_R)) -}
+79f0995c5f300915bbf0113cc0e0d53b
+  grabAnInt1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, GHC.Types.Int #)
+  {- Arity: 1, Strictness: <S,U> -}
+644d5791d630fd06597d841d6e371bdf
+  main :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+fa00fce114f3470c1f5b3bbc474fbc07
+  main1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main7
+                        GHC.Types.True
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main5
+                        GHC.Types.True
+                        ipv of ds2 { (#,#) ipv2 ipv3 ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        GHC.Types.True
+                        ipv2 of ds3 { (#,#) ipv4 ipv5 ->
+                 Main.$wbrainf Main.main3 Main.main2 ipv4 } } }) -}
+183184eb38285c7bd39e3c385cedabd5
+  main2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
+b39e0eed28f74f52735dafb5a6f3d533
+  main3 :: Data.Vector.Persistent.Vector GHC.Types.Int
+  {- Unfolding: (case Data.Vector.Persistent.singleton1
+                        @ GHC.Types.Int of dt { Data.Vector.Persistent.Array.Array dt1 ->
+                 Data.Vector.Persistent.RootNode
+                   @ GHC.Types.Int
+                   1#
+                   5#
+                   0#
+                   0#
+                   Main.main4
+                   dt1 }) -}
+119e32730b8a9c09aa3a94787cf4e757
+  main4 :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Int
+                   Main.main2
+                   (GHC.Types.[] @ GHC.Types.Int)) -}
+ea7bf0ccbe55fc5a8af3533da86c6455
+  main5 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Main.main6) -}
+06fb4dc25c020acd999a71cfd0f43d7f
+  main6 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("This is version 0.1"#) -}
+e84fe6e4d9ae13b0e9db7e42b06543eb
+  main7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Main.main8) -}
+d485b6fc33db5dc8b312aa4b732439c7
+  main8 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("Welcome to Divesh's simplified brainf interpreter"#) -}
+d7a4325d58291745f37d1eac62ae3cd7
+  main9 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1,
+     Unfolding: (GHC.TopHandler.runMainIO1
+                   @ ()
+                   Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+
