@@ -2,6 +2,7 @@
 
 body {
     margin: 0;
+    background-color: coral;
 }
 
 /* Create two unequal columns that floats next to each other */
