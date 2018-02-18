@@ -26,6 +26,7 @@ main = do
   putStrLn ""
   brainf ((V.singleton 0),0)
 
+
 brainf :: BfList -> IO ()
 brainf bflist@(list, pointer) = do
   putStr "simple-brainf$ "
@@ -79,6 +80,7 @@ evaluate Input x@(list, pointer) = do
 grabAnInt :: IO Int
 grabAnInt = do
   putStr "Enter int: "
+  hFlush stdout
   line <- getLine
   case readMaybe line :: Maybe Int of
     Nothing -> grabAnInt
