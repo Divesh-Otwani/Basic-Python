@@ -2,6 +2,11 @@
 
 ## Current Work
 
+My largest haskell project is my research project: a plugin for GHC.
+
+I haven't had time to flush out any large personal haskell projects.
+I hope to during my breaks in the school year.
+
 
 - SixTheGame 
   - This is a really elegant, but powerful mathematical game
