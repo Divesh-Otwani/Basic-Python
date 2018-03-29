@@ -3,6 +3,7 @@
 ## Current Work
 
 My largest haskell project is my research project: a plugin for GHC.
+See [here](https://github.com/Divesh-Otwani/popl-src-2018-type-level-finite-maps).
 
 I haven't had time to flush out any large personal haskell projects.
 I hope to during my breaks in the school year.

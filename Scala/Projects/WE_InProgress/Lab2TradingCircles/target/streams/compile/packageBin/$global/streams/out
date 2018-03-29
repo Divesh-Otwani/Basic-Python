@@ -1,0 +1,33 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/lab2tradingcircles_2.12-0.1-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Simulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Simulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Name.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Name.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/DoRandTrade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/DoRandTrade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/addTrader.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/addTrader.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Trade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Trade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/OfferedTrade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/OfferedTrade.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Simulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Simulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Server.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Server.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Simulation$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Simulation$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Market.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Market.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Request.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Request.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Trader.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Trader.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/FindMyTrades.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/FindMyTrades.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	tradingCircles/Server$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/divesh/git_repos/My-Online-Workspace/Scala/Projects/WE_InProgress/Lab2TradingCircles/target/scala-2.12/classes/tradingCircles/Server$.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m

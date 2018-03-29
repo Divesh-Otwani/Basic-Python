@@ -26,3 +26,10 @@ body {
     display: table;
     clear: both;
 }
+
+
+<style>
+    section { border:1px solid red; padding:10px; overflow:hidden; }
+    section > section { float:left; }
+    .indent-1 { padding-left:120px; }
+</style>

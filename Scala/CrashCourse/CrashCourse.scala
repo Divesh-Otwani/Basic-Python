@@ -1,13 +1,14 @@
 /*
 
-In this file I run thorough examples of most of the features of Scala. 
+In this file I run thorough examples of most of the features of Scala.
 It is a reference for the basic to medium features of the language.
 
 */
 
 object CrashCourse extends App{
-    println("Hello, Scala!") 
-    for (arg <- args) println(arg)
+  println("Hello, Scala!")
+  //var calc = new Calculator("name")
+  for (arg <- args) println(arg)
 }
 // We can see the impact of the above
 //divesh:CrashCourse$ scala CrashCourse this is a test
@@ -28,8 +29,8 @@ trait Identify {
 }
 
 //Class example
-class Calculator(name: String) extends Identify { //could extend 
-    
+class Calculator(name: String) extends Identify { //could extend
+
     val brand: String = "TI83"
     def announce: Unit = {
         println(name + " is here!");
@@ -39,28 +40,23 @@ class Calculator(name: String) extends Identify { //could extend
 
 }
 
-
-
-
-
-
-// below is a singleton object, the first one is one too, 
+// below is a singleton object, the first one is one too,
 // it acts like a main getting s Seq(String) -- a sequence of strings
 
 object Learning {
     def printAll(args: String*) = { //example of argument lists, there is only one and it comes last
-        args.map {arg => println(arg)}
+      args.map {arg => println(arg)}
     }
-    val val1 = 2; // val can't be changed
-    var var1 = 3; 
-    var1 += 1; // var can be changed
-    
+  val val1 = 2; // val can't be changed
+  var var1 = 3;
+  var name = 3;
+  var1 += 1; // var can be changed
 
 
     val anonyFunc = (i: Int) => i + 1
-    
+
     def add(x: Int, y: Int) : Int = {
-        x + y 
+        x + y
     }
     val addOne = add(1, _:Int); // Curry functions at any arguement(s)
 
@@ -68,7 +64,7 @@ object Learning {
     newcalc.announce; // In order to see this, you need to RUN
                         // the Learning object by in the interpreter, typeing
                         // > Learning
-    
+
     //type parameter syntax --paramentric and, observe that it works on classes too
     def id[A](a: A): A = {a} // this MUST be the case
 
