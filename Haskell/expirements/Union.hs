@@ -1,8 +1,15 @@
 {-# LANGUAGE TypeFamilies, TypeInType,
     GADTs, RecordWildCards, StandaloneDeriving #-}
-module Union where
+module Union ( Union(..) ) where
 
 import Data.Kind ( Type )
+
+{-
+All we expose is the data type, not the type family.
+Hence, you can make arbtrary unions and it avoids the
+tau space problem.
+
+-}
 
 type family InUnion (a :: Type) (b :: Type) (c :: Type) where {}
 
