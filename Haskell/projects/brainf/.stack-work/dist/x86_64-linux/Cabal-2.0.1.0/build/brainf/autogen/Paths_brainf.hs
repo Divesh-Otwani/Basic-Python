@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/bin"
-libdir     = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/lib/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0-AImJWLrHSqB1DTJtiuLkXj-brainf"
-dynlibdir  = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/lib/x86_64-linux-ghc-8.2.2"
-datadir    = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/share/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0"
-libexecdir = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/libexec/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0"
-sysconfdir = "/home/divesh/git_repos/My-Online-Workspace/Haskell/Projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/etc"
+bindir     = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/bin"
+libdir     = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/lib/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0-AImJWLrHSqB1DTJtiuLkXj-brainf"
+dynlibdir  = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/lib/x86_64-linux-ghc-8.2.2"
+datadir    = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/share/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0"
+libexecdir = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/libexec/x86_64-linux-ghc-8.2.2/brainf-0.1.0.0"
+sysconfdir = "/home/divesh/git_repos/online-workspace/Haskell/projects/brainf/.stack-work/install/x86_64-linux/lts-10.4/8.2.2/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "brainf_bindir") (\_ -> return bindir)
