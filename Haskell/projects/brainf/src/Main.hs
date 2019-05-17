@@ -127,32 +127,3 @@ seqParse cmd ls (c:cs) = case c of
   _   -> seqParse cmd ls cs
 
 
-
-
-
-{-
-convertString :: String -> Maybe BFInput
-convertString [] = Just DoNothing
-convertString (c:cs) 
-  | c /= '[' || c /= ']' = do
-    singleCommand <- convertChar c
-    otherCommands <- convertString cs
-    return (Sequence singleCommand otherCommands)
-      where
-        convertChar :: Char -> Maybe BFInput
-        convertChar '+' = Just Inc
-        convertChar '-' = Just Dec
-        convertChar '>' = Just MoveRight
-        convertChar '<' = Just MoveLeft
-        convertChar '.' = Just Print
-        convertChar ',' = Just Input
-        convertChar _   = Nothing
-  | otherwise = 
-
-
--}
-
-
-
-
-
