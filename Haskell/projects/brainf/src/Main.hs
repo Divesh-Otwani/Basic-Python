@@ -1,7 +1,7 @@
 {-# LANGUAGE GADTs #-}
 module Main where
 
-import qualified Data.Vector.Persistent as V
+import qualified Data.Vector as V
 import Text.Read ( readMaybe )
 import System.IO (hFlush, stdin, stdout)
 
@@ -13,8 +13,8 @@ data BFInput where
   MoveRight :: BFInput
   Print :: BFInput
   Input :: BFInput
-  Sequence :: BFInput  -> BFInput -> BFInput
---  Iterate :: BFInput -> BFInput       --  Todo: while loops
+  Seq :: BFInput  -> BFInput -> BFInput
+  Iterate :: BFInput -> BFInput       --  Todo: while loops
 
 
 type BfList = (V.Vector Int, Int)
@@ -50,11 +50,17 @@ brainf bflist@(list, pointer) = do
 -- invariant: valid pointer
 evaluate :: BFInput -> BfList -> IO (Maybe BfList)
 evaluate DoNothing x = return (Just x)
-evaluate (Sequence i j) x = do
+evaluate (Seq i j) x = do
   maybeNewList <- evaluate i x
   case maybeNewList of
     Just newList -> evaluate j newList
     Nothing -> return Nothing
+evaluate e@(Iterate body) bfl = do
+  Just bfl'@(list,pointer) <- evaluate body bfl
+  Just currVal <- return $ list V.!? pointer
+  case currVal of
+    0 -> return $ Just bfl'
+    _ -> evaluate e bfl'
 evaluate MoveRight (list, pointer) =
   if length list == pointer + 1
   then return $ Just (V.snoc list 0, pointer + 1)
@@ -64,18 +70,21 @@ evaluate MoveLeft (list, pointer) =
   then return Nothing
   else return $ Just (list, pointer - 1)
 evaluate Inc (list, pointer) =
-  return $
-    Just (V.update pointer ((V.unsafeIndex list pointer) + 1) list, pointer)
+  return $ do
+    currVal <- list V.!? pointer
+    Just (list V.// [(pointer, (currVal + 1))], pointer)
 evaluate Dec (list, pointer) =
-  return $
-    Just (V.update pointer ((V.unsafeIndex list pointer) - 1) list, pointer)
+  return $ do
+    currVal <- list V.!? pointer
+    Just (list V.// [(pointer, (currVal - 1))], pointer)
 evaluate Print x@(list, pointer) = do
   putStrLn (show (V.unsafeIndex list pointer))
   hFlush stdout
   return $ Just x
 evaluate Input x@(list, pointer) = do
   int <- grabAnInt
-  return $ Just (V.update pointer int list, pointer)
+  return $ Just (list V.// [(pointer, int)], pointer)
+
 
 grabAnInt :: IO Int
 grabAnInt = do
@@ -87,24 +96,61 @@ grabAnInt = do
     Just int -> return int
 
 
+
+
+convertString :: String -> Maybe BFInput
+convertString = seqParse DoNothing []
+
+
+type CmdInScope = BFInput
+type WhileLoopStack = [BFInput -> BFInput]
+seqParse :: CmdInScope -> WhileLoopStack -> String -> Maybe BFInput
+seqParse cmd [] [] = return cmd
+seqParse cmd (_:_) [] = Nothing 
+seqParse cmd ls (c:cs) = case c of
+  '+' -> seqParse (Seq cmd Inc) ls cs
+  '-' -> seqParse (Seq cmd Dec) ls cs
+  ',' -> seqParse (Seq cmd Input) ls cs
+  '.' -> seqParse (Seq cmd Print) ls cs
+  '>' -> seqParse (Seq cmd MoveRight) ls cs
+  '<' -> seqParse (Seq cmd MoveLeft) ls cs
+  '[' ->
+    let
+      newLoop :: BFInput -> BFInput
+      newLoop loopBody = Seq cmd $ Iterate loopBody
+      ls' = newLoop : ls
+    in
+      seqParse DoNothing ls' cs
+  ']' -> case ls of
+    []     -> Nothing
+    (x:xs) -> seqParse (x cmd) xs cs
+  _   -> seqParse cmd ls cs
+
+
+
+
+
+{-
 convertString :: String -> Maybe BFInput
 convertString [] = Just DoNothing
-convertString (c:cs) = do
-  singleCommand <- convertChar c
-  otherCommands <- convertString cs
-  return (Sequence singleCommand otherCommands)
-  where
-    convertChar :: Char -> Maybe BFInput
-    convertChar '+' = Just Inc
-    convertChar '-' = Just Dec
-    convertChar '>' = Just MoveRight
-    convertChar '<' = Just MoveLeft
-    convertChar '.' = Just Print
-    convertChar ',' = Just Input
-    convertChar _   = Nothing
+convertString (c:cs) 
+  | c /= '[' || c /= ']' = do
+    singleCommand <- convertChar c
+    otherCommands <- convertString cs
+    return (Sequence singleCommand otherCommands)
+      where
+        convertChar :: Char -> Maybe BFInput
+        convertChar '+' = Just Inc
+        convertChar '-' = Just Dec
+        convertChar '>' = Just MoveRight
+        convertChar '<' = Just MoveLeft
+        convertChar '.' = Just Print
+        convertChar ',' = Just Input
+        convertChar _   = Nothing
+  | otherwise = 
 
 
-
+-}
 
 
 
