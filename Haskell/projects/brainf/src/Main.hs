@@ -47,6 +47,7 @@ brainf bflist@(list, pointer) = do
           putStrLn ""
           hFlush stdout
 
+
 -- invariant: valid pointer
 evaluate :: BFInput -> BfList -> IO (Maybe BfList)
 evaluate DoNothing x = return (Just x)
@@ -92,7 +93,9 @@ grabAnInt = do
   hFlush stdout
   line <- getLine
   case readMaybe line :: Maybe Int of
-    Nothing -> grabAnInt
+    Nothing -> do
+      putStrLn "Invalid int."
+      grabAnInt
     Just int -> return int
 
 
@@ -106,7 +109,7 @@ type CmdInScope = BFInput
 type WhileLoopStack = [BFInput -> BFInput]
 seqParse :: CmdInScope -> WhileLoopStack -> String -> Maybe BFInput
 seqParse cmd [] [] = return cmd
-seqParse cmd (_:_) [] = Nothing 
+seqParse cmd (_:_) [] = Nothing -- Unclosed loops
 seqParse cmd ls (c:cs) = case c of
   '+' -> seqParse (Seq cmd Inc) ls cs
   '-' -> seqParse (Seq cmd Dec) ls cs
@@ -122,8 +125,8 @@ seqParse cmd ls (c:cs) = case c of
     in
       seqParse DoNothing ls' cs
   ']' -> case ls of
-    []     -> Nothing
+    []     -> Nothing -- Closing a non-existing loop
     (x:xs) -> seqParse (x cmd) xs cs
-  _   -> seqParse cmd ls cs
+  _   -> seqParse cmd ls cs -- Ignore irrelevant characters
 
 
