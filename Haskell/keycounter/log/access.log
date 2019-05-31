@@ -1,2 +1,0 @@
-127.0.0.1 - - [27/May/2019:12:44:13 -0400] "GET / HTTP/1.1" 200 24 "http://snapframework.com/docs/quickstart" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
-127.0.0.1 - - [27/May/2019:12:44:13 -0400] "GET /favicon.ico HTTP/1.1" 404 209 - "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
