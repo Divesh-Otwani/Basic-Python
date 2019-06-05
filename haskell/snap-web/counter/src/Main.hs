@@ -56,7 +56,7 @@ inputHandler store' = do
       liftIO . atomically $ incCountStm store inputStr
 
     incCountStm :: ConcStore -> B.ByteString -> STM ()
-    incCountStm store inputStr = 
+    incCountStm store inputStr =
       Map.focus (alterM incOrInsert) inputStr store
 
     incOrInsert :: Monad m => Maybe Int -> m (Maybe Int)
@@ -66,7 +66,7 @@ inputHandler store' = do
 queryHandler :: ConcStore -> Snap ()
 queryHandler store' = do
   queryParam <- getQueryParam queryparamStr
-  case queryParam of 
+  case queryParam of
     Nothing -> return () -- We don't error
     Just queryStr -> do
       val <- lookupCountSnap store' queryStr
@@ -81,11 +81,9 @@ queryHandler store' = do
     queryparamStr :: B.ByteString
     queryparamStr = "queryParam"
 
-
     lookupCountSnap :: ConcStore -> B.ByteString -> Snap Int
     lookupCountSnap store queryStr =
       liftIO . atomically $ lookupCountSTM store queryStr
-
 
     lookupCountSTM :: ConcStore -> B.ByteString -> STM Int
     lookupCountSTM store str = fmap toZero $ Map.lookup str store
