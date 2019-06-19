@@ -12,8 +12,6 @@ Folders:
 * [ICPC](https://icpcarchive.ecs.baylor.edu/index.php?option=com_frontpage&Itemid=1) and [UVaOnlineJudge](https://uva.onlinejudge.org/index.php?option=com_frontpage&Itemid=1) are competitive programming practice websites. I did one problem from each just to explore.
 
 
-In general, I don't like C++. I think Rust is way better.
-It's just good to have heard of C++ and some of the core ideas in C++.
 
 
 
