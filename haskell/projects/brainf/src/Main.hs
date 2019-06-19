@@ -14,7 +14,7 @@ data BFInput where
   Print :: BFInput
   Input :: BFInput
   Seq :: BFInput  -> BFInput -> BFInput
-  Iterate :: BFInput -> BFInput       --  Todo: while loops
+  Iterate :: BFInput -> BFInput
 
 
 type BfList = (V.Vector Int, Int)

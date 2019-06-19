@@ -3,19 +3,21 @@
 #include <stdlib.h>
 #include <assert.h>
 
-typedef struct Node{
+typedef struct Node {
 	void *val;
 	struct Node *next;
 } Node;
 
 
-typedef struct linkedList{
+typedef struct linkedList {
 	int len;
 	Node *head;
 	Node *tail;
 } LL;
-//Invariants: if len==0, head and tail are NULL
-//Otherwise, the next of tail is NULL.
+
+//Invariants:
+//  if len==0, head and tail are NULL
+//  Otherwise, the next of tail is NULL.
 
 
 LL *CreateLL(){

@@ -26,6 +26,15 @@ dependencies {
   // consumers.
   implementation 'com.google.guava:guava:27.0.1-jre'
 
+/*
+Site: https://mvnrepository.com/
+
+Go to the site above, find a library, click on the version 
+and copy and paste the dependency below.
+
+You might need to add a repository from maven in the section above.
+*/
+
   // https://mvnrepository.com/artifact/org.jsoup/jsoup
   compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
 

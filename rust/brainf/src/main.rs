@@ -35,12 +35,11 @@ struct BTape {
 fn main(){
     print_greeting();
     let mut btape: BTape = BTape {pos: 0_u32, tape:HashMap::new()};
+    let mut curr_line: String = get_line();
     loop {
         let mut stack = Vec::new();
-        let curr_line: String = get_line();
-        //curr_line = get_line();
         bf_engine(&curr_line, &mut btape, &mut stack);
-        //stack.clear();
+        curr_line = get_line();
     }
 }
 
@@ -48,15 +47,15 @@ fn main(){
 
 
 /*******************************************************************/
-/*********************   core functions        *********************/
+/*********************       core functions    *********************/
 /*******************************************************************/
 
 
 fn bf_engine<'a>( cmd: &'a str
                  , btape: &mut BTape
-                 , stack: & mut Vec<&'a str>) -> &'a str {
+                 , stack: &mut Vec<&'a str>){
     if cmd.len() == 0 {
-        return cmd;
+        ()
     } else {
         use std::usize;
         let curr_char = cmd.chars().next().unwrap();
@@ -74,7 +73,6 @@ fn bf_engine<'a>( cmd: &'a str
                 if is_curr_zero(btape) {
                     stack.pop();
                     bf_engine(&cmd[1..], btape, stack);
-                    return cmd;
                 } else {
                     if (stack.len() == 0){
                         panic!("Unbalanced loops.");
@@ -84,8 +82,7 @@ fn bf_engine<'a>( cmd: &'a str
                 };
             },
             _ => (),
-        };
-        return cmd;
+        }
     }
 }
 
