@@ -9,4 +9,4 @@
  * https://docs.gradle.org/5.4.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'heap'
+rootProject.name = 'hello'
