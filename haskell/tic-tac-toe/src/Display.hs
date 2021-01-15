@@ -1,7 +1,6 @@
 module Display
   ( eventHandler
   , displayGame
-  , getValidSpot
   ) where
 
 import Data.Maybe (mapMaybe)
