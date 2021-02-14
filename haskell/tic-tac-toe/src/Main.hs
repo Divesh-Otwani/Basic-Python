@@ -1,8 +1,8 @@
 module Main where
 
 import Board
-import Game
-import Display
+import Game (initialState)
+import Display (eventHandler, displayGame)
 
 import Graphics.Gloss
 

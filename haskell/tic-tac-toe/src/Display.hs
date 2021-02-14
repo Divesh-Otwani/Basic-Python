@@ -103,4 +103,3 @@ displayBoard b = pictures $
 
     displayO :: (Float, Float) -> Picture
     displayO (x,y) = translate x y (circle 100)
-
