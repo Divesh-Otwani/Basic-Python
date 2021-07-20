@@ -1,0 +1,19 @@
+lec02
+
+# Notes/Code
+
+ • Let expressions are real expressions, evaluated the first then second
+ • .ml files are sequence of declarations
+    ◦ some of these are type declarations, some are let declarations
+    ◦ other declaration types too
+ • Lexically scoped: variables are always to closest definition
+ • Evaluation of “let x = e1 in e2”
+    ◦ evaluate e1 to v1
+    ◦ substitute in e2 to e2’
+    ◦ evaluate e2’ to v2
+
+
+# Reading
+
+  • All stuff you know
+

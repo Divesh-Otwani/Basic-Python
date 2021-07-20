@@ -1,0 +1,61 @@
+lec01
+
+# Notes/Code
+
+ • In the genology of FP
+    ◦ OCaml is call-by-value, typed and, polymorphic
+ • Text is RWO
+ • Thinking functionally: process is function — no mutations and just descriptions
+
+
+ • Installing, running
+    ◦ has a few compilers and top-level shell, do “$ ocaml”
+ • Some basic programs
+ • Terms
+    ◦ expressions like 2+3
+    ◦ values are subset of expressions that are results
+       ▸ 5, “hi”
+    ◦ types are collections of values and computations that generate those values
+       ▸ int, float, char, string, bool, unit, list, array
+ • Core expression syntax
+    ◦ e :==
+       ▸ values, variables, operators (e op e’),
+       ▸ local variables, ite, with type (e:t)
+ • Types allow you to structure the outline of code
+    ◦ they help you narrowly specify a pre-and post condition
+ • Robert milner: well-typed programs do not go wrong
+    ◦ Does 3 / 0 go wrong?
+       ▸ If we consider raising exceptions as part of defined behavior, no
+       ▸ “Go wrong” refers to has undefined behavior
+    ◦ Languages with this property have sound type systems.
+    ◦ The language is called safe
+
+
+# Reading
+
+ • Functional basics:
+ •
+    values
+    variables
+    variable defined by another module: ModuleName.var
+    expression with a type annotation: (exp : type)
+    binary operator op: exp1 op exp2
+    function f applied to arguments: f exp1 exp2 ... expk
+    let expression declaring a local variable: let var = exp1 in exp2
+    let expression with a type annotation: let var : type = exp1 in exp2
+    let expression declaring a local function:
+       let f var1 var2 ... vark = exp1 in exp2
+    local function with type annotations:
+        let f (var1:type1) ... (vark:typek) : type_result = exp1 in exp2
+
+    Here are the declarations we have seen —
+
+    type declaration: let type_name = type;;
+    let declaration: let var : type = exp1;;
+    function declaration:
+        let f (var1:type1) ... (vark:typek) : type_result = exp1;;
+ • Type checking
+    ◦ You know what this is
+    ◦ Fundamentally it is compositional
+
+
