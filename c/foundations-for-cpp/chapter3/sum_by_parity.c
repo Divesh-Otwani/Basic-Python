@@ -10,12 +10,12 @@ int main()
     int AmtOfInts, temp;
     printf("How many integers would you like to give me?");
     scanf("%d", &AmtOfInts);
-    for (AmtOfInts; AmtOfInts > 0; AmtOfInts--){
+    for (; AmtOfInts > 0; AmtOfInts--){
         printf("Give me an integer: ");
         scanf("%d", &temp);
-        if(temp % 2){
+        if ((temp % 2) != 0){
             SumOfOdds += temp;
-        }else {
+        } else {
             SumOfEvens += temp;
         }
     }

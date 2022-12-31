@@ -9,6 +9,3 @@ documentation in each folder.
 
 I graduated from [Haverford College](https://www.haverford.edu/
 "Haverford College") with a Bachelors in Math and Computer Science.
-
-
-

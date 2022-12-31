@@ -7,7 +7,7 @@ int main() {
     printf("short: %d, %d\n", SHRT_MIN, SHRT_MAX);
     printf("int: %d, %d\n", INT_MIN, INT_MAX);    
     printf("long: %ld, %ld\n\n", LONG_MIN, LONG_MAX);
-    
+
     printf("radix: %d\n", FLT_RADIX);
     printf("float: %d radix digits\n",FLT_MANT_DIG);
     printf("\t[%g, %g]\n", FLT_MIN, FLT_MAX);
@@ -15,15 +15,15 @@ int main() {
     printf("\t[%g, %g]\n", DBL_MIN, DBL_MAX);
     printf("long double: %d radix digits\n",LDBL_MANT_DIG);
     printf("\t[%Lg, %Lg]\n\n", LDBL_MIN, LDBL_MAX);
-    
+
     float x = ULONG_MAX;    /* 4,294,967,295 */
     double y = ULONG_MAX;
     long double z = ULONG_MAX;
 
     printf("float: %f\ndouble: %f\nlong double: %Lf\n",x,y,z);
-    
+
     return 0;
-    
+
 }
 /*
 char: -128, 127
